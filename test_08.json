@@ -1,0 +1,159 @@
+{
+  "openapi": "3.0.1",
+  "info": 
+  { 
+    "title": "AIS openapi file parser test",
+    "description": "simple service parsing test - 3 services",
+    "version": "1.0.0"
+  },
+  "paths":
+  {   
+    "/Test08_01_Service": {
+      "post": {
+        "description": "3 input and 3 output fields include UDT type; 2 UDT type definitions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "client_name": { "type": "string" },
+                  "operation_id": { "type": "integer" },
+                  "operation_details": { "$ref": "#/components/schemas/details" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "operation_result": { "$ref": "#/components/schemas/result" },
+                    "operation_date": { "type": "string", "format" : "date-time" }
+                  }
+                }
+              }
+            }
+          }
+        } 
+      }
+    },
+    "/Test08_02_Service": {
+      "post": {
+        "description": "3 input and 3 output fields include UDT type; 2 UDT type definitions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "clientName": { "type": "string" },
+                  "opID": { "type": "integer" },
+                  "opDetails": { "$ref": "#/components/schemas/details" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "risk score": { "$ref": "#/components/schemas/score" },
+                    "date": { "type": "string", "format" : "date-time" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Test08_03_Service": {
+      "post": {
+        "description": "3 input and 3 output fields include UDT type; 2 UDT type definitions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": { "type": "string" },
+                  "id": { "type": "integer" },
+                  "details": { "$ref": "#/components/schemas/details" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "opResult": { "$ref": "#/components/schemas/result" },
+                    "opDate": { "type": "string", "format" : "date-time" },
+                    "event": { "type": "object", "title": "FF_deviceEvent", "properties": {} }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components":
+  {
+    "schemas":
+    {
+      "result":  {
+        "type": "object",
+        "title": "OperationResultUDT",
+        "properties": {
+          "is accepted": { "type": "boolean" },
+          "operator name": { "type": "string" },
+          "organization unit": { "type": "string" }
+        }
+      },
+      "score":   {
+         "type": "object",
+         "properties": {
+           "total risk score": {"type": "number"},
+           "personal score": {"type": "number"},
+           "country score": {"type": "number"}
+         }
+      },
+      "address": {
+        "type": "object",
+        "title": "AddressUDT",
+        "properties": {
+          "line 1": { "type": "string" },
+          "line 2": { "type": "string" },
+          "line 3": { "type": "string" },
+          "City/Town": { "type": "string" },
+          "State/Province": { "type": "string" },
+          "zip code": { "type": "integer" },
+          "Country": { "type": "string" }
+        }
+      },
+      "details": {
+         "type": "object",
+         "title": "OperationDetailsUDT",
+         "properties": { 
+           "operation id": {"type": "integer"},
+           "operation date": {"type": "string", "format" : "date-time"},
+           "operation type": {"type": "string"},
+           "operation amount": {"type": "number"},
+           "total operations": {"type": "integer"}
+         }
+      }
+    }
+  }
+}
